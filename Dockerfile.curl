@@ -1,0 +1,8 @@
+# rebased/repackaged base image that only updates existing packages
+FROM mbentley/buildkit-repro:alpine
+LABEL maintainer="Matt Bentley <mbentley@mbentley.net>"
+
+RUN apk --no-cache add curl
+
+ENTRYPOINT ["curl"]
+CMD ["--help"]
