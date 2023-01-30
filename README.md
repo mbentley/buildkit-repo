@@ -1,6 +1,6 @@
 # buildkit-repro
 
-To reproduce:
+## To Reproduce
 
 ``` bash
 # create builder
@@ -39,4 +39,22 @@ $ diff <(docker inspect 0afb6413da9b) <(docker inspect cc7de484da6e)
 <             "mbentley/buildkit-repro@sha256:de1b2fe8cdfbf88b4ebb7cd2256b1c56002143dedbc316c30e51b00dad62c468"
 ---
 >             "mbentley/buildkit-repro@sha256:11dbb23b6a7acc6be628ea3923a1270b60565e021571191ffd95cdc978307c1e"
+```
+
+## Example with Watchtower
+
+``` bash
+# run a container, starting a shell just to have a container to update
+docker run -itd --name shtest --entrypoint sh mbentley/buildkit-repro:curl -l
+
+# do a build loop from the repro above
+
+# run watchtower once
+docker run -it --rm \
+--name watchtower \
+-e WATCHTOWER_RUN_ONCE=true \
+-v /var/run/docker.sock:/var/run/docker.sock \
+containrrr/watchtower shtest
+
+# look at the output to see the container was re-created
 ```
