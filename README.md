@@ -3,7 +3,7 @@
 ## To Reproduce
 
 ``` bash
-# create builder
+# create builder using buildkit 0.11.x
 docker buildx create --name bk-test1 --driver-opt "image=moby/buildkit:v0.11.2" --node bk-test1 &&  docker buildx inspect --bootstrap bk-test1 &&  docker buildx use bk-test1
 
 # do a loop 3x just to be able to see multiple image changes; running twice will show it though
@@ -21,6 +21,9 @@ do
   # show the image
   docker images | grep mbentley/buildkit-repro
 done
+
+# cleanup builder (optional)
+docker buildx rm bk-test1
 ```
 
 The image ID will have changed despite the layers not changing - seems to be due to the manifest changing.
