@@ -4,7 +4,9 @@
 
 ``` bash
 # create builder using buildkit 0.11.x
-docker buildx create --name bk-test1 --driver-opt "image=moby/buildkit:v0.11.2" --node bk-test1 &&  docker buildx inspect --bootstrap bk-test1 &&  docker buildx use bk-test1
+docker buildx create --name bk-test1 --driver-opt "image=moby/buildkit:v0.11.2" --node bk-test1 &&\
+  docker buildx inspect --bootstrap bk-test1 &&\
+  docker buildx use bk-test1
 
 # do a loop 3x just to be able to see multiple image changes; running twice will show it though
 for LOOP in {1..3}
